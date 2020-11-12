@@ -1403,6 +1403,13 @@
   dependencies:
     "@pixi/core" "5.3.3"
 
+"@pixi/graphics-extras@^5.3.3":
+  version "5.3.3"
+  resolved "https://registry.yarnpkg.com/@pixi/graphics-extras/-/graphics-extras-5.3.3.tgz#35ccbaf7ba6d48627927af9f9ed5b1b36a91292d"
+  integrity sha512-00WG1U6X2Ta/tzOjeqlvE00DFNdWLpaA/BOuQW8X18BJoriX7XE245+vGeyhHrjLor2VCG9qJCf91390FPnVjg==
+  dependencies:
+    "@pixi/graphics" "5.3.3"
+
 "@pixi/graphics@5.3.3":
   version "5.3.3"
   resolved "https://registry.yarnpkg.com/@pixi/graphics/-/graphics-5.3.3.tgz#cfaf5a0a94a811f7359c20875547c14095f1ecec"

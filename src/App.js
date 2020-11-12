@@ -1,6 +1,7 @@
 import { Container, Graphics, Text } from "pixi.js";
 import Logo from './Logo.js';
 import Bite from './bite.js';
+import Board from './Board.js';
 
 
 function init({ stage, screen, ticker }) {
@@ -23,7 +24,12 @@ function init({ stage, screen, ticker }) {
   bite.position.set(screen.width / 2, (screen.height * 43) / 100);
   root.addChild(bite);
 
-  const text = new Text("Hello dick!.", {
+
+  const board = Board(0xe91e63,8);
+  board.position.set(screen.width / 2, (screen.height * 43) / 100);
+  root.addChild(board);
+
+  const text = new Text("Hello polygone!.", {
     fontSize: 34,
     fill: 0xffffff,
   });
