@@ -31,12 +31,10 @@ function getAlpha(xa,xb,ya,yb){
   }
 }
 
-function drawBarPlayer(numPlayer,nbPlayers,color,x,y,pos){
+function drawBarPlayer(numPlayer,nbPlayers,color,x,y){
   let centerX = ( x[numPlayer] + x[(numPlayer+1)%nbPlayers]  )/2;
   let centerY = ( y[numPlayer] + y[(numPlayer+1)%nbPlayers]  )/2;
   let alpha = getAlpha(x[numPlayer],x[(numPlayer+1)%nbPlayers],y[numPlayer],y[(numPlayer+1)%nbPlayers]);
-
-  console.log("player"+numPlayer+" alpha:"+alpha);
 
   let width = 5;
   let barWidth = 30;
@@ -53,11 +51,11 @@ function drawBarPlayer(numPlayer,nbPlayers,color,x,y,pos){
   graphic.position.x = centerX;
   graphic.position.y = centerY;
 
-  graphic.pivot.set(pos,0);
-
   return graphic;
 }
 
+
+var barPlayer = null;
 
 function Board(color,nbPlayers) {
   const board = new Container();
@@ -66,10 +64,11 @@ function Board(color,nbPlayers) {
   const plateau2 = drawPolygone(400,color,nbPlayers,x,y);
   board.addChild(plateau2);
 
+  barPlayer = new Array(nbPlayers);
 
-  const barPlayer = new Array(nbPlayers);
+
   for(let i=0; i<nbPlayers;i++){
-    barPlayer[i] = drawBarPlayer(i,nbPlayers,color,x,y,-50);
+    barPlayer[i] = drawBarPlayer(i,nbPlayers,color,x,y);
     barPlayer[i].interactive = true;
     barPlayer[i].buttonMode = true;
     barPlayer[i].on('pointerdown', function(e) { console.log("click la bar player"+i) });
@@ -83,4 +82,9 @@ function Board(color,nbPlayers) {
   return board;
 }
 
-export default Board;
+function MouvePlayer(numPlayer,offset){
+  barPlayer[numPlayer].pivot.set(barPlayer[numPlayer].pivot._x +offset,0);
+}
+
+
+export {Board,MouvePlayer};
