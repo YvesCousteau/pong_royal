@@ -31,9 +31,9 @@ function getAlpha(xa,xb,ya,yb){
   }
 }
 
-function drawBarPlayer(numPlayer,nbPlayers,color,x,y){
-  let centerX = (x[numPlayer]+x[(numPlayer+1)%nbPlayers])/2;
-  let centerY = (y[numPlayer]+y[(numPlayer+1)%nbPlayers])/2;
+function drawBarPlayer(numPlayer,nbPlayers,color,x,y,pos){
+  let centerX = ( x[numPlayer] + x[(numPlayer+1)%nbPlayers]  )/2;
+  let centerY = ( y[numPlayer] + y[(numPlayer+1)%nbPlayers]  )/2;
   let alpha = getAlpha(x[numPlayer],x[(numPlayer+1)%nbPlayers],y[numPlayer],y[(numPlayer+1)%nbPlayers]);
 
   console.log("player"+numPlayer+" alpha:"+alpha);
@@ -53,6 +53,8 @@ function drawBarPlayer(numPlayer,nbPlayers,color,x,y){
   graphic.position.x = centerX;
   graphic.position.y = centerY;
 
+  graphic.pivot.set(pos,0);
+
   return graphic;
 }
 
@@ -67,7 +69,7 @@ function Board(color,nbPlayers) {
 
   const barPlayer = new Array(nbPlayers);
   for(let i=0; i<nbPlayers;i++){
-    barPlayer[i] = drawBarPlayer(i,nbPlayers,color,x,y);
+    barPlayer[i] = drawBarPlayer(i,nbPlayers,color,x,y,-50);
     barPlayer[i].interactive = true;
     barPlayer[i].buttonMode = true;
     barPlayer[i].on('pointerdown', function(e) { console.log("click la bar player"+i) });
