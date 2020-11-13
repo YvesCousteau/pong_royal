@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { Application } from "pixi.js";
 
-export default memo(({ init, ...props }) => (
-  <canvas ref={(view) => init(new Application({ view, ...props }))}></canvas>
+export default memo(({ game, ...props }) => (
+  <canvas ref={(view) => {game.init(new Application({ view, ...props }));}}></canvas>
 ));

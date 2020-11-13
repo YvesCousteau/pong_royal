@@ -4,6 +4,11 @@
   align-items: center;
   color: white;
 }
+.playerpos{
+  position: fixed;
+  color: white;
+  right: 5px;
+}
 
 body {
   margin: 0;

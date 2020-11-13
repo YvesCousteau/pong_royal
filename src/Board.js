@@ -76,14 +76,17 @@ function Board(color,nbPlayers) {
   }
 
   //boule2.pivot.set(180, 0);
+  if(nbPlayers%2)
+    board.rotation = Math.PI/nbPlayers;
+  else
+    board.rotation = Math.PI/nbPlayers*2;
 
-  board.rotation = Math.PI/nbPlayers;
 
   return board;
 }
 
 function MouvePlayer(numPlayer,offset){
-  barPlayer[numPlayer].pivot.set(barPlayer[numPlayer].pivot._x +offset,0);
+  barPlayer[numPlayer].pivot.set(offset,0);
 }
 
 
