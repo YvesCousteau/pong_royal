@@ -1,80 +1,39 @@
-import { Container, Graphics, Text } from "pixi.js";
-import Bite from './bite.js';
-import {Board,MouvePlayer} from './Board.js';
-import keyboard from './keyboard.js';
+import './App.css';
+
+import React, { useState, useEffect } from "react";
+import socketIOClient from "socket.io-client";
+
+import Canvas from "./Canvas";
+import Game from "./Game";
+
+const ENDPOINT = "http://vct.xyz:4001";
 
 
-let rightPressing = false;
-let leftPressing = false;
-let SpeedPlayer = 5;
+const config = {
+  width: 1920,
+  height: 1080,
+  antialias: true,
+};
 
-function init({ stage, screen, ticker }) {
-  const root = new Container();
-  stage.addChild(root);
+function App() {
 
-  const background = new Graphics();
-  background.beginFill(0x282c34);
-  background.drawRect(0, 0, screen.width, screen.height);
-  background.endFill();
-  root.addChild(background);
+  const [response, setResponse] = useState("");
 
-  /*
-  const bite = Bite(0xe91e63);
-  bite.position.set(screen.width / 2, (screen.height * 43) / 100);
-  //root.addChild(bite);
-  ticker.add((delta) => {
-    bite.rotation += (Math.PI / 480) * delta;
-  });
-  const text = new Text("Hello polygone!.", {
-    fontSize: 34,
-    fill: 0xffffff,
-  });
-  text.anchor.set(0.5, 0);
-  text.position.set(screen.width / 2, (screen.height * 70) / 100);
-  root.addChild(text);
-  */
+  useEffect(() => {
+    const socket = socketIOClient(ENDPOINT, {transports: ['websocket', 'polling', 'flashsocket']});
+    socket.on("FromAPI", data => {
+      setResponse(data);
+    });
+  }, []);
 
+  return (
+    <div >
+        <h3 class="title">Info du server (socket.io): <time dateTime={response}>{response}</time></h3>
+        <Canvas init={Game} {...config}>
+        </Canvas>
 
-
-  let nbPlayer = 8;
-  let board = Board(0xe91e63,nbPlayer);
-  board.position.set(screen.width / 2, (screen.height * 43) / 100);
-  root.addChild(board);
-
-
-  let keyLeft = keyboard("ArrowLeft");
-  let keyRight = keyboard("ArrowRight");
-
-  keyRight.press = () => {rightPressing = true;};
-  keyRight.release = () => {rightPressing = false;};
-  keyLeft.press = () => {leftPressing = true;};
-  keyLeft.release = () => {leftPressing = false;};
-
-  gameLoop(0);
-
+    </div>
+  );
 }
 
-function gameLoop(timestamp){
-  //60 fps
-  //console.log(timestamp);
-
-  requestAnimationFrame(function(timestamp) {
-    gameLoop(timestamp);
-  });
-
-
-  if(rightPressing){
-    MouvePlayer(0,SpeedPlayer);
-  }
-  if(leftPressing){
-    MouvePlayer(0,-SpeedPlayer);
-  }
-
-}
-
-
-export default function main(app) {
-  init(app);
-}
-
-
+export default App;
