@@ -11,7 +11,7 @@ function drawPolygone(size,color,side,x,y){
   }
 
   const graphic = new Graphics();
-  graphic.lineStyle(width,color);
+  graphic.lineStyle(width,color-0x222222);
   graphic.moveTo(x[0], y[0]);
   for(let i=0; i<side;i++){
     graphic.lineTo(x[i], y[i]);
@@ -24,11 +24,7 @@ function drawPolygone(size,color,side,x,y){
 }
 
 function getAlpha(xa,xb,ya,yb){
-  if (xb >= 0){
-    return Math.acos((xb-xa)/(Math.sqrt(Math.pow((xb-xa),2)+Math.pow((yb-ya),2))));
-  }else{
-    return -Math.acos((xb-xa)/(Math.sqrt(Math.pow((xb-xa),2)+Math.pow((yb-ya),2))));
-  }
+  return Math.atan2((ya-yb),(xa-xb))+Math.PI;
 }
 
 function drawBarPlayer(numPlayer,nbPlayers,color,x,y){
@@ -36,14 +32,15 @@ function drawBarPlayer(numPlayer,nbPlayers,color,x,y){
   let centerY = ( y[numPlayer] + y[(numPlayer+1)%nbPlayers]  )/2;
   let alpha = getAlpha(x[numPlayer],x[(numPlayer+1)%nbPlayers],y[numPlayer],y[(numPlayer+1)%nbPlayers]);
 
-  let width = 5;
-  let barWidth = 30;
+  let width = 10;
+  let widthSide = Math.sqrt(Math.pow(x[1]-x[0],2)+Math.pow(y[1]-y[0],2));
+  let barWidth = widthSide/8;
 
   const graphic = new Graphics();
   //graphic.rotation = alpha;
 
-  graphic.beginFill(color-0x222222);
-  graphic.drawRect(0, 0, barWidth, 5)
+  graphic.beginFill(color);
+  graphic.drawRect(0, 0, barWidth, width)
   graphic.endFill();
 
 
@@ -57,7 +54,7 @@ function drawBarPlayer(numPlayer,nbPlayers,color,x,y){
 
 var barPlayer = null;
 
-function Board(color,nbPlayers) {
+function Board(color,nbPlayers,numPlayer) {
   const board = new Container();
   const x = new Array(nbPlayers);
   const y = new Array(nbPlayers);
@@ -65,10 +62,14 @@ function Board(color,nbPlayers) {
   board.addChild(plateau2);
 
   barPlayer = new Array(nbPlayers);
-
+  let colorBar = null;
 
   for(let i=0; i<nbPlayers;i++){
-    barPlayer[i] = drawBarPlayer(i,nbPlayers,color,x,y);
+    if(numPlayer == i)
+      colorBar = 0xe91e63;
+    else
+      colorBar = color;
+    barPlayer[i] = drawBarPlayer(i,nbPlayers,colorBar,x,y);
     barPlayer[i].interactive = true;
     barPlayer[i].buttonMode = true;
     barPlayer[i].on('pointerdown', function(e) { console.log("click la bar player"+i) });
@@ -76,17 +77,16 @@ function Board(color,nbPlayers) {
   }
 
   //boule2.pivot.set(180, 0);
-  if(nbPlayers%2)
-    board.rotation = Math.PI/nbPlayers;
-  else
-    board.rotation = Math.PI/nbPlayers*2;
-
+  
+  board.rotation = -((Math.PI)/(nbPlayers/2))/4;  
 
   return board;
 }
 
 function MouvePlayer(numPlayer,offset){
-  barPlayer[numPlayer].pivot.set(offset,0);
+  if (barPlayer[numPlayer]){
+    barPlayer[numPlayer].pivot.set(offset,0);
+  }
 }
 
 
