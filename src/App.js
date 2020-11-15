@@ -10,7 +10,7 @@ import socketIOClient from "socket.io-client";
 import Canvas from "./Canvas";
 import Game from "./Game";
 
-const ENDPOINT = "http://localhost:4001";
+const ENDPOINT = "http://vct.xyz:4001";
 
 const config = {
   width: 1920,
