@@ -5,11 +5,6 @@ function drawPolygone(size,color,side,x,y){
   let r = size;
   let width = 5;
 
-  for(let i=0; i<side;i++){
-    x[i] = r * Math.cos(2*Math.PI*(i+1)/side)
-    y[i] = r * Math.sin(2*Math.PI*(i+1)/side)
-  }
-
   const graphic = new Graphics();
   graphic.lineStyle(width,color-0x222222);
   graphic.moveTo(x[0], y[0]);
@@ -23,24 +18,33 @@ function drawPolygone(size,color,side,x,y){
   return graphic;
 }
 
+function drawBall(color,x,y){
+  let width = 10;
+  const graphic = new Graphics();
+
+  graphic.beginFill(color);
+  graphic.drawCircle(0, 0, width);
+  graphic.endFill();
+
+  return graphic;
+}
+
 function getAlpha(xa,xb,ya,yb){
   return Math.atan2((ya-yb),(xa-xb))+Math.PI;
 }
 
-function drawBarPlayer(numPlayer,nbPlayers,color,x,y){
+function drawBarPlayer(numPlayer,nbPlayers,color,x,y,barwidth){
   let centerX = ( x[numPlayer] + x[(numPlayer+1)%nbPlayers]  )/2;
   let centerY = ( y[numPlayer] + y[(numPlayer+1)%nbPlayers]  )/2;
   let alpha = getAlpha(x[numPlayer],x[(numPlayer+1)%nbPlayers],y[numPlayer],y[(numPlayer+1)%nbPlayers]);
 
   let width = 10;
-  let widthSide = Math.sqrt(Math.pow(x[1]-x[0],2)+Math.pow(y[1]-y[0],2));
-  let barWidth = widthSide/8;
 
   const graphic = new Graphics();
   //graphic.rotation = alpha;
 
   graphic.beginFill(color);
-  graphic.drawRect(0, 0, barWidth, width)
+  graphic.drawRect(0, 0, barwidth, width)
   graphic.endFill();
 
 
@@ -53,11 +57,12 @@ function drawBarPlayer(numPlayer,nbPlayers,color,x,y){
 
 
 var barPlayer = null;
+var balles = null;
 
-function Board(color,nbPlayers,numPlayer) {
+function Board(color,nbPlayers,numPlayer,tabx,taby,barwidth,nbBalle) {
   const board = new Container();
-  const x = new Array(nbPlayers);
-  const y = new Array(nbPlayers);
+  const x = tabx;
+  const y = taby;
   const plateau2 = drawPolygone(400,color,nbPlayers,x,y);
   board.addChild(plateau2);
 
@@ -69,15 +74,19 @@ function Board(color,nbPlayers,numPlayer) {
       colorBar = 0xe91e63;
     else
       colorBar = color;
-    barPlayer[i] = drawBarPlayer(i,nbPlayers,colorBar,x,y);
-    barPlayer[i].interactive = true;
-    barPlayer[i].buttonMode = true;
-    barPlayer[i].on('pointerdown', function(e) { console.log("click la bar player"+i) });
+    barPlayer[i] = drawBarPlayer(i,nbPlayers,colorBar,x,y,barwidth);
     board.addChild(barPlayer[i]);
   }
 
+  balles = new Array(nbBalle);
+
+  for(let i=0; i<nbBalle;i++){
+    balles[i] = drawBall(color,0,0);
+    board.addChild(balles[i]);
+  }
+
   //boule2.pivot.set(180, 0);
-  board.rotation = (Math.PI*2)/(nbPlayers*2)*(numPlayer+1);
+  board.rotation = - ( ((Math.PI)/(nbPlayers)) * ((numPlayer+1)*2) ) + ((Math.PI)/(nbPlayers)/2) ;
 
   return board;
 }
@@ -88,5 +97,11 @@ function MouvePlayer(numPlayer,offset){
   }
 }
 
+function MouveBalle(i,offset){
+  if (balles[i]){
+    balles[i].pivot.set(offset.x,offset.y);
+  }
+}
 
-export {Board,MouvePlayer};
+
+export {Board,MouvePlayer,MouveBalle};

@@ -28,7 +28,7 @@ let numPlayer = 0;
 
 function App() {
 
-  const [timeoutGamestart, settimeoutGamestart] = useState(20);
+  const [timeoutGamestart, settimeoutGamestart] = useState(10);
   const [gameStart, setgameStart] = useState(false);
   const [showResult, setshowResult] = useState(false);
   const [gameId, setGameId] = useState(null);
@@ -47,22 +47,21 @@ function App() {
     });
 
     socket.on("start game", data => {
+      
       console.log("game start");
       setGameId(data.id);
       numPlayer = data.numPlayer;
       setPositionPlayer(data.position);
-      game = new Game(socket,data.id,numPlayer,data.position.length);
+      game = new Game(socket,data.id,numPlayer,data.position.length,data.x,data.y,data.barWidth,3);
       //game.UpdatePosition(data.position);
-
       setgameStart(true);
     });
 
-
-    socket.on("position change", data => {
-      console.log("get positionPlayer");
+    socket.on("Update game", data => {
       setPositionPlayer(data.pos);
-      game.UpdatePosition(data.pos);
-    });
+      game.UpdatePositionPlayer(data.pos);
+      game.UpdatePositionBalle(data.ballePosition);
+    }); 
 
     return () => socket.disconnect();
   }, []);
@@ -96,7 +95,14 @@ function App() {
     setGameId(1);
     numPlayer = 3;
     setPositionPlayer([0,0,0,0,0]);
-    game = new Game(socket,1,numPlayer,5);
+
+    let x = new Array(5);
+    let y = new Array(5);
+    for(let i=0; i<5;i++){
+      x[i] = 400 * Math.cos(2*Math.PI*(i+1)/5)
+      y[i] = 400 * Math.sin(2*Math.PI*(i+1)/5)
+    }
+    game = new Game(socket,1,numPlayer,5,x,y,50,3);
 
     setgameStart(true);
   }
