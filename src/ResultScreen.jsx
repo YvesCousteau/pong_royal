@@ -16,11 +16,11 @@ const config = {
   colors: ["#da275c", "#22c9bb", "#ffee07"]
 };
 
-function ResultScreen() {
+function ResultScreen(props) {
   const [youWin, setYouWin] = useState(false);
 
   return (
-    <div class="modal fade in show" style={{display: "block"}} id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" data-show="true">
+    <div class="modal show" style={{display: props.show ? "block" : "none"}} id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" data-show="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content card border-info">
           <div class="modal-header">

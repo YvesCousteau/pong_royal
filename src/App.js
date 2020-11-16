@@ -83,17 +83,9 @@ function App() {
     }
   }
 
-  const printResult = () => {
-    if(showResult){ 
-      return (<ResultScreen/>);
-    }else{
-      return null;
-    }
-  }
-
   if (gameStart){
     return (
-      <div >
+      <div>
         <div class="modal">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -181,9 +173,7 @@ function App() {
               </div>
             </div>
 
-            <button onClick={(btn) => {if(!showResult){setshowResult(true);}else{setshowResult(true);}}} type="button" class="btn btn-info mt-5">Classement</button>                  
-
-            {printResult()}
+            <ResultScreen show={showResult}/>
           
         </div>
       </div>
