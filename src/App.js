@@ -2,6 +2,7 @@ import './App.css';
 
 import { memo } from "react";
 import { Application } from "pixi.js";
+import { Modal,Button } from 'react-bootstrap';
 
 
 import React, { useState, useEffect } from "react";
@@ -10,7 +11,7 @@ import socketIOClient from "socket.io-client";
 import Canvas from "./Canvas";
 import Game from "./Game";
 
-const ENDPOINT = "http://vct.xyz:4001";
+const ENDPOINT = "http://localhost:4001";
 
 const config = {
   width: 1920,
@@ -85,7 +86,31 @@ function App() {
     return (
       <div >
           <h3 class="title">Time : (socket.io): <time dateTime={response}>{response}</time></h3>
-          <p>Nbplayer waiting {waitingPlayer}</p>
+          <p>Waiting for players {waitingPlayer}/10</p>
+          <p>required minimum 3 players</p>
+          <Modal
+            show={true}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+          >
+            <Modal.Header >
+              <Modal.Title id="contained-modal-title-vcenter">
+                Modal heading
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <h4>Centered Modal</h4>
+              <p>
+                Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+                dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
+                consectetur ac, vestibulum at eros.
+              </p>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={()=>{console.log("hide");}}>Close</Button>
+            </Modal.Footer>
+          </Modal>
       </div>
     );
   }
