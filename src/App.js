@@ -26,16 +26,17 @@ let numPlayer = 0;
 
 function App() {
 
-  const [response, setResponse] = useState("");
+  const [timeoutGamestart, settimeoutGamestart] = useState(20);
   const [gameStart, setgameStart] = useState(false);
   const [gameId, setGameId] = useState(null);
+  const [imready, setimready] = useState(false);
   const [waitingPlayer, setwaitingPlayer] = useState(0);
   const [positionPlayer, setPositionPlayer] = useState([0,0,0,0,0,0,0,0,0,0]);
 
   useEffect(() => {
 
     socket.on("FromAPI", data => {
-      setResponse(data);
+      settimeoutGamestart(data);
     });
 
     socket.on("waiting player", data => {
@@ -63,10 +64,25 @@ function App() {
     return () => socket.disconnect();
   }, []);
 
+  const printImReady = () => {
+    if(imready){ 
+      return (<span class="text-danger">You are ready !</span>);
+    }else{
+      return null;
+    }
+  }
+
+  const printInfo = () => {
+    if(waitingPlayer >= 3){ 
+      return (<p>Game will start in {timeoutGamestart}s</p>);
+    }else{
+      return (<p>required minimum 3 players</p>);
+    }
+  }
+
   if (gameStart){
     return (
       <div >
-          <h3 class="title">Time : (socket.io): <time dateTime={response}>{response}</time></h3>
           <ul class="playerpos">MovePlayer (socket.io)
           <li>p0 : {positionPlayer[0] ? positionPlayer[0] : 0}</li>
           <li>p1 : {positionPlayer[1]? positionPlayer[1] : 0}</li>
@@ -86,21 +102,33 @@ function App() {
     );
   }else{
     return (
-      <div >
-          <h3 class="title">Time : (socket.io): <time dateTime={response}>{response}</time></h3>
-          <p>Waiting for players {waitingPlayer}/10</p>
-          <p>required minimum 3 players</p>
-          
-          <p class="bs-component">
-            <button type="button" class="btn btn-primary">Primary</button>
-            <button type="button" class="btn btn-secondary">Secondary</button>
-            <button type="button" class="btn btn-success">Success</button>
-            <button type="button" class="btn btn-info">Info</button>
-            <button type="button" class="btn btn-warning">Warning</button>
-            <button type="button" class="btn btn-danger">Danger</button>
-            <button type="button" class="btn btn-link">Link</button>
-            <button class="source-button btn btn-primary btn-xs" role="button" tabindex="0">&lt; &gt;</button>
-          </p>
+      <div class="section-1-container section-container m-4">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col section-1 section-description">
+                    <h1>PONG ROYAL</h1>
+                    <div class="divider-1"><span></span></div>
+                    <p>Waiting for players <b>{waitingPlayer}/10</b></p>
+                    {printInfo()}
+
+                </div>
+            </div>
+            <div class="div-wrapper d-flex justify-content-center align-items-center">
+              <div class="row">
+                  <div class="col-10 offset-1 col-lg-8 offset-lg-2 d-flex justify-content-center align-items-center">
+                    <div class="input-pseudo  mr-2">
+                      <input id="pseudo" type="text" class="form-control" aria-label="Pseudo" placeholder="Pseudo" aria-describedby="inputGroup-sizing"/>
+                    </div>
+                    <button onClick={(btn) => {if(!imready){socket.emit("player ready",{pseudo:document.getElementById("pseudo").value});setimready(true);}}} type="button" class="btn btn-info" disabled={false}>I'm ready</button>                  
+                  </div>
+              </div>
+              <div class="row">
+                <div class="col mt-2">
+                  {printImReady()}
+                </div>
+              </div>
+            </div>
+        </div>
       </div>
     );
   }
