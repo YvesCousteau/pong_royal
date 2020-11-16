@@ -10,6 +10,8 @@ import socketIOClient from "socket.io-client";
 import Canvas from "./Canvas";
 import Game from "./Game";
 
+import './bootstrap.css'
+
 const ENDPOINT = "http://localhost:4001";
 
 const config = {
@@ -79,6 +81,7 @@ function App() {
           </ul>
           <Canvas socket={socket} game={game} {...config} ></Canvas>
           {/*positionPlayer([0,0,0,0,0,0,0,0,0])*/}
+
       </div>
     );
   }else{
@@ -88,6 +91,16 @@ function App() {
           <p>Waiting for players {waitingPlayer}/10</p>
           <p>required minimum 3 players</p>
           
+          <p class="bs-component">
+            <button type="button" class="btn btn-primary">Primary</button>
+            <button type="button" class="btn btn-secondary">Secondary</button>
+            <button type="button" class="btn btn-success">Success</button>
+            <button type="button" class="btn btn-info">Info</button>
+            <button type="button" class="btn btn-warning">Warning</button>
+            <button type="button" class="btn btn-danger">Danger</button>
+            <button type="button" class="btn btn-link">Link</button>
+            <button class="source-button btn btn-primary btn-xs" role="button" tabindex="0">&lt; &gt;</button>
+          </p>
       </div>
     );
   }
