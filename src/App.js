@@ -10,7 +10,7 @@ import socketIOClient from "socket.io-client";
 import Canvas from "./Canvas";
 import Game from "./Game";
 
-import {ResultScreen, ModalScoreS} from "./ResultScreen";
+import {ResultScreen, ModalScore} from "./ResultScreen";
 
 import './bootstrap.css'
 
@@ -94,61 +94,24 @@ function App() {
     setgameStart(true);
   }
 
+
   if (gameStart){
     return (
       <div>
-        <div class="modal">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th scope="col" className="text-warning">#</th>
-                      <th scope="col" className="text-warning">Pseudo</th>
-                      <th scope="col" className="text-warning">Score</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row"> <h2  className="text-warning">1</h2> </th>
-                      <td className="text-info">Mark</td>
-                      <td className="text-danger">73234</td>
-                    </tr>
-                    <tr>
-                      <th scope="row"> <h2  className="text-warning">2</h2> </th>
-                      <td className="text-info">Jacob</td>
-                      <td className="text-danger">2342342</td>
-                    </tr>
-                    <tr>
-                      <th scope="row"> <h2  className="text-warning">3</h2> </th>
-                      <td className="text-info">Larry</td>
-                      <td className="text-danger">20380458</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
+
+        <ModalScore show={true}/>
 
         <ul class="playerpos">MovePlayer (socket.io)
-        <li>p0 : {positionPlayer[0] ? positionPlayer[0] : 0}</li>
-        <li>p1 : {positionPlayer[1]? positionPlayer[1] : 0}</li>
-        <li>p2 : {positionPlayer[2]? positionPlayer[2] : 0}</li>
-        <li>p3 : {positionPlayer[3]? positionPlayer[3] : 0}</li>
-        <li>p4 : {positionPlayer[4]? positionPlayer[4] : 0}</li>
-        <li>p5 : {positionPlayer[5]? positionPlayer[5] : 0}</li>
-        <li>p6 : {positionPlayer[6]? positionPlayer[6] : 0}</li>
-        <li>p7 : {positionPlayer[7]? positionPlayer[7] : 0}</li>
-        <li>p8 : {positionPlayer[8]? positionPlayer[8] : 0}</li>
-        <li>p9 : {positionPlayer[9]? positionPlayer[9] : 0}</li>
+          <li>p0 : {positionPlayer[0] ? positionPlayer[0] : 0}</li>
+          <li>p1 : {positionPlayer[1]? positionPlayer[1] : 0}</li>
+          <li>p2 : {positionPlayer[2]? positionPlayer[2] : 0}</li>
+          <li>p3 : {positionPlayer[3]? positionPlayer[3] : 0}</li>
+          <li>p4 : {positionPlayer[4]? positionPlayer[4] : 0}</li>
+          <li>p5 : {positionPlayer[5]? positionPlayer[5] : 0}</li>
+          <li>p6 : {positionPlayer[6]? positionPlayer[6] : 0}</li>
+          <li>p7 : {positionPlayer[7]? positionPlayer[7] : 0}</li>
+          <li>p8 : {positionPlayer[8]? positionPlayer[8] : 0}</li>
+          <li>p9 : {positionPlayer[9]? positionPlayer[9] : 0}</li>
         </ul>
         <Canvas socket={socket} game={game} {...config} ></Canvas>
         {/*positionPlayer([0,0,0,0,0,0,0,0,0])*/}
