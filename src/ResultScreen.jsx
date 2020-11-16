@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Confetti from 'react-dom-confetti';
 
 const config = {
@@ -19,65 +19,73 @@ const config = {
 function ResultScreen(props) {
   const [youWin, setYouWin] = useState(false);
 
-  return (
-    <div class="modal show" style={{display: props.show ? "block" : "none"}} id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" data-show="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content card border-info">
-          <div class="modal-header">
-            <h2 class="modal-title" id="exampleModalLongTitle">RESULT SCREEN</h2>
-          </div>
-          <div class="modal-body">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col" className="text-warning">#</th>
-                  <th scope="col" className="text-warning">Pseudo</th>
-                  <th scope="col" className="text-warning">Score</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row"> <h2  className="text-warning">1 <Confetti active={ youWin } config={ config }/></h2> </th>
-                  <td className="text-info">Emixx</td>
-                  <td className="text-danger">73234</td>
-                </tr>
-                <tr>
-                  <th scope="row"> <h2  className="text-warning">2</h2> </th>
-                  <td className="text-info">Cousteau</td>
-                  <td className="text-danger">2342342</td>
-                </tr>
-                <tr>
-                  <th scope="row"> <h2  className="text-warning">3</h2> </th>
-                  <td className="text-info">T3rruss</td>
-                  <td className="text-danger">20380458</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" onClick={() => setYouWin(!youWin)}>Replay</button>
+  if (props.show)
+    return (
+      <div class="modal show" style={{display: props.show ? "block" : "none"}} id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" data-show="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content card border-info">
+            <div class="modal-header">
+              <h2 class="modal-title" id="exampleModalLongTitle">RESULT SCREEN</h2>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col" className="text-warning">#</th>
+                    <th scope="col" className="text-warning">Pseudo</th>
+                    <th scope="col" className="text-warning">Score</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row"> <h2  className="text-warning">1 <Confetti active={ youWin } config={ config }/></h2> </th>
+                    <td className="text-info">Emixx</td>
+                    <td className="text-danger">73234</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"> <h2  className="text-warning">2</h2> </th>
+                    <td className="text-info">Cousteau</td>
+                    <td className="text-danger">2342342</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"> <h2  className="text-warning">3</h2> </th>
+                    <td className="text-info">T3rruss</td>
+                    <td className="text-danger">20380458</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" onClick={() => setYouWin(!youWin)}>Replay</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  else
+    return (null)
 }
 
-const ModalScore = () => (
-  <ul className="card border-info list-group">
-    <li className="list-group-item d-flex justify-content-between align-items-center text-info">
-      Emixx
-      <span className="badge badge-primary badge-pill text-danger">14</span>
-    </li>
-    <li className="list-group-item d-flex justify-content-between align-items-center text-info">
-      Cousteau
-      <span className="badge badge-primary badge-pill text-danger">69</span>
-    </li>
-    <li className="list-group-item d-flex justify-content-between align-items-center text-info">
-      T3rruss
-      <span className="badge badge-primary badge-pill text-danger">420</span>
-    </li>
-  </ul>
-)
+const ModalScore = (props) => {
+  if (props.show)
+    return (
+      <ul style={{position: "absolute", top: "10px", right: "10px", width: "200px"}} className="modal-dialog card border-info list-group">
+        <li className="list-group-item d-flex justify-content-between align-items-center text-info" style={{fontFamily: "Oxanium"}}>
+          Emixx
+          <span className="badge badge-primary badge-pill text-danger" style={{fontSize: "1em", fontFamily: "Oxanium"}}>14</span>
+        </li>
+        <li className="list-group-item d-flex justify-content-between align-items-center text-info" style={{fontFamily: "Oxanium"}}>
+          Cousteau
+          <span className="badge badge-primary badge-pill text-danger" style={{fontSize: "1em", fontFamily: "Oxanium"}}>69</span>
+        </li>
+        <li className="list-group-item d-flex justify-content-between align-items-center text-info" style={{fontFamily: "Oxanium"}}>
+          T3rruss
+          <span className="badge badge-primary badge-pill text-danger" style={{fontSize: "1em", fontFamily: "Oxanium"}}>420</span>
+        </li>
+      </ul>
+    )
+
+  else return (null)
+}
 
 export {ModalScore, ResultScreen}
