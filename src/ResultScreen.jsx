@@ -2,7 +2,7 @@
 const ResultScreen = ()=> (
   <div class="modal fade in show" style={{display: "block"}} id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" data-show="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
+      <div class="modal-content card border-info">
         <div class="modal-header">
           <h2 class="modal-title" id="exampleModalLongTitle">RESULT SCREEN</h2>
         </div>
@@ -43,7 +43,7 @@ const ResultScreen = ()=> (
 )
 
 const ModalScore = () => (
-  <ul className="list-group">
+  <ul className="card border-info list-group">
     <li className="list-group-item d-flex justify-content-between align-items-center text-info">
       Emixx
       <span className="badge badge-primary badge-pill text-danger">14</span>
