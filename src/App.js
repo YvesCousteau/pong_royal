@@ -1,16 +1,12 @@
 import './App.css';
 
-import { memo } from "react";
-import { Application } from "pixi.js";
-
-
 import React, { useState, useEffect } from "react";
 import socketIOClient from "socket.io-client";
 
 import Canvas from "./Canvas";
 import Game from "./Game";
 
-import {ResultScreen, ModalScoreS} from "./ResultScreen";
+import {ResultScreen, ModalScore} from "./ResultScreen";
 
 import './bootstrap.css'
 
@@ -67,7 +63,7 @@ function App() {
   }, []);
 
   const printImReady = () => {
-    if(imready){ 
+    if(imready){
       return (<span class="text-danger">You are ready !</span>);
     }else{
       return null;
@@ -75,20 +71,13 @@ function App() {
   }
 
   const printInfo = () => {
-    if(waitingPlayer >= 3){ 
+    if(waitingPlayer >= 3){
       return (<p>Game will start in {timeoutGamestart}s</p>);
     }else{
       return (<p>required minimum 3 players</p>);
     }
   }
 
-  const printResult = () => {
-    if(showResult){ 
-      return (<ResultScreen/>);
-    }else{
-      return null;
-    }
-  }
 
   const generateGame = () => {
 
@@ -107,61 +96,24 @@ function App() {
     setgameStart(true);
   }
 
+
   if (gameStart){
     return (
-      <div >
-        <div class="modal">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th scope="col" className="text-warning">#</th>
-                      <th scope="col" className="text-warning">Pseudo</th>
-                      <th scope="col" className="text-warning">Score</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row"> <h2  className="text-warning">1</h2> </th>
-                      <td className="text-info">Mark</td>
-                      <td className="text-danger">73234</td>
-                    </tr>
-                    <tr>
-                      <th scope="row"> <h2  className="text-warning">2</h2> </th>
-                      <td className="text-info">Jacob</td>
-                      <td className="text-danger">2342342</td>
-                    </tr>
-                    <tr>
-                      <th scope="row"> <h2  className="text-warning">3</h2> </th>
-                      <td className="text-info">Larry</td>
-                      <td className="text-danger">20380458</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div>
+
+        <ModalScore show={true}/>
 
         <ul class="playerpos">MovePlayer (socket.io)
-        <li>p0 : {positionPlayer[0] ? positionPlayer[0] : 0}</li>
-        <li>p1 : {positionPlayer[1]? positionPlayer[1] : 0}</li>
-        <li>p2 : {positionPlayer[2]? positionPlayer[2] : 0}</li>
-        <li>p3 : {positionPlayer[3]? positionPlayer[3] : 0}</li>
-        <li>p4 : {positionPlayer[4]? positionPlayer[4] : 0}</li>
-        <li>p5 : {positionPlayer[5]? positionPlayer[5] : 0}</li>
-        <li>p6 : {positionPlayer[6]? positionPlayer[6] : 0}</li>
-        <li>p7 : {positionPlayer[7]? positionPlayer[7] : 0}</li>
-        <li>p8 : {positionPlayer[8]? positionPlayer[8] : 0}</li>
-        <li>p9 : {positionPlayer[9]? positionPlayer[9] : 0}</li>
+          <li>p0 : {positionPlayer[0] ? positionPlayer[0] : 0}</li>
+          <li>p1 : {positionPlayer[1]? positionPlayer[1] : 0}</li>
+          <li>p2 : {positionPlayer[2]? positionPlayer[2] : 0}</li>
+          <li>p3 : {positionPlayer[3]? positionPlayer[3] : 0}</li>
+          <li>p4 : {positionPlayer[4]? positionPlayer[4] : 0}</li>
+          <li>p5 : {positionPlayer[5]? positionPlayer[5] : 0}</li>
+          <li>p6 : {positionPlayer[6]? positionPlayer[6] : 0}</li>
+          <li>p7 : {positionPlayer[7]? positionPlayer[7] : 0}</li>
+          <li>p8 : {positionPlayer[8]? positionPlayer[8] : 0}</li>
+          <li>p9 : {positionPlayer[9]? positionPlayer[9] : 0}</li>
         </ul>
         <Canvas socket={socket} game={game} {...config} ></Canvas>
         {/*positionPlayer([0,0,0,0,0,0,0,0,0])*/}
@@ -171,10 +123,14 @@ function App() {
   }else{
     return (
       <div class="section-1-container section-container m-4">
-        <div class="container">
+
+        <div class="container-main">
             <div class="row text-center">
                 <div class="col section-1 section-description">
                     <h1>PONG ROYAL</h1>
+
+
+
                     <div class="divider-1"><span></span></div>
                     <p>Waiting for players <b>{waitingPlayer}/10</b></p>
                     {printInfo()}
@@ -187,7 +143,7 @@ function App() {
                     <div class="input-pseudo  mr-2">
                       <input id="pseudo" type="text" class="form-control" aria-label="Pseudo" placeholder="Pseudo" aria-describedby="inputGroup-sizing"/>
                     </div>
-                    <button onClick={(btn) => {if(!imready){socket.emit("player ready",{pseudo:document.getElementById("pseudo").value});setimready(true);}}} type="button" class="btn btn-info" disabled={false}>I'm ready</button>                  
+                    <button onClick={(btn) => {if(!imready){socket.emit("player ready",{pseudo:document.getElementById("pseudo").value});setimready(true);}}} type="button" class="btn btn-info" disabled={false}>I'm ready</button>
                   </div>
               </div>
               <div class="row">
@@ -197,11 +153,40 @@ function App() {
               </div>
             </div>
 
-            <button onClick={(btn) => {generateGame()}} type="button" class="btn btn-danger mt-5">GENERATE GAME</button>                  
-            <button onClick={(btn) => {if(!showResult){setshowResult(true);}else{setshowResult(true);}}} type="button" class="btn btn-info mt-5">Classement</button>                  
+            <ResultScreen show={showResult}/>
+            <button onClick={(btn) => {generateGame()}} type="button" class="btn btn-danger">GENERATE GAME</button>
 
-            {printResult()}
-          
+          <div>
+            <div class="scene">
+              <div class="container">
+                <div class="sun"></div>
+                <div class="band s0"></div>
+                <div class="band s01"></div>
+                <div class="band s1"></div>
+                <div class="band s11"></div>
+                <div class="band s2"></div>
+                <div class="band s21"></div>
+                <div class="band s3"></div>
+                <div class="band s31"></div>
+                <div class="band s4"></div>
+                <div class="band s41"></div>
+                <div class="band s5"></div>
+                <div class="band s51"></div>
+                <div class="band s6"></div>
+                <div class="band s61"></div>
+                <div class="band s7"></div>
+                <div class="band s71"></div>
+                <div class="band s8"></div>
+                <div class="band s81"></div>
+                <div class="band s9"></div>
+                <div class="band s91"></div>
+                <div class="band s10"></div>
+                <div class="band s101"></div>
+                <div class="band s11_"></div>
+                <div class="band s111"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );

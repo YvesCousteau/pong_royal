@@ -1,5 +1,5 @@
-import { Container, Graphics, Text } from "pixi.js";
 import {Board,MouvePlayer,MouveBalle} from './Board.js';
+import { Container } from "pixi.js";
 import keyboard from './keyboard.js';
 
 
