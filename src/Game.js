@@ -82,7 +82,7 @@ class game {
 
     if(rightPressing && positionPlayer[numPlayer]+SpeedPlayer <= limitMax){
       console.log("press right")
-       socket.emit('MovePlayer', { player: numPlayer,move:SpeedPlayer,gameId: gameId});     
+      socket.emit('MovePlayer', { player: numPlayer,move:SpeedPlayer,gameId: gameId});     
     }
     if(leftPressing && positionPlayer[numPlayer]-SpeedPlayer >= limitMin){
       socket.emit('MovePlayer', { player: numPlayer,move:-SpeedPlayer,gameId: gameId});
