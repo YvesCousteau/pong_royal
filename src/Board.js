@@ -77,8 +77,7 @@ function Board(color,nbPlayers,numPlayer) {
   }
 
   //boule2.pivot.set(180, 0);
-  
-  board.rotation = -((Math.PI)/(nbPlayers/2))/4;  
+  board.rotation = (Math.PI*2)/(nbPlayers*2)*(numPlayer+1);
 
   return board;
 }

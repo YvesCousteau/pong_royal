@@ -91,6 +91,16 @@ function App() {
     }
   }
 
+  const generateGame = () => {
+
+    setGameId(1);
+    numPlayer = 3;
+    setPositionPlayer([0,0,0,0,0]);
+    game = new Game(socket,1,numPlayer,5);
+
+    setgameStart(true);
+  }
+
   if (gameStart){
     return (
       <div >
@@ -181,6 +191,7 @@ function App() {
               </div>
             </div>
 
+            <button onClick={(btn) => {generateGame()}} type="button" class="btn btn-danger mt-5">GENERATE GAME</button>                  
             <button onClick={(btn) => {if(!showResult){setshowResult(true);}else{setshowResult(true);}}} type="button" class="btn btn-info mt-5">Classement</button>                  
 
             {printResult()}
