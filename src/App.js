@@ -14,7 +14,7 @@ import {ResultScreen, ModalScoreS} from "./ResultScreen";
 
 import './bootstrap.css'
 
-const ENDPOINT = "http://vct.xyz:4001";
+const ENDPOINT = "http://localhost:4001";
 
 const config = {
   width: 1920,

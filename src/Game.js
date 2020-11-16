@@ -47,10 +47,11 @@ class game {
     board.position.set(screen.width / 2, (screen.height * 43) / 100);
     root.addChild(board);
 
+
+    //a faire coté server
     let r = 400;
     x = new Array(nbPlayer);
     y = new Array(nbPlayer);
-
     for(let i=0; i<nbPlayer;i++){
       x[i] = r * Math.cos(2*Math.PI*(i+1)/nbPlayer)
       y[i] = r * Math.sin(2*Math.PI*(i+1)/nbPlayer)
