@@ -9,6 +9,7 @@ let leftPressing = false;
 let socket = null;
 let gameId = null;
 let numPlayer = 0;
+let nbPlayer = 0;
 
 let positionPlayer = [0,0,0,0,0,0,0,0,0,0];
 let limitMin = 0;
@@ -23,10 +24,11 @@ let y = null;
 
 class game {
 
-  constructor(s,idG,n){
+  constructor(s,idG,n,nbp){
     socket = s;
     gameId = idG;
     numPlayer = n;
+    nbPlayer = nbp
     console.log("start GameId : "+gameId+ " num player: "+numPlayer);
     //this.init(game);
   }
@@ -41,8 +43,6 @@ class game {
     background.endFill();
     root.addChild(background);
     */
-
-    let nbPlayer = 7;
     let board = Board(0x4CD2CA,nbPlayer,numPlayer);
     board.position.set(screen.width / 2, (screen.height * 43) / 100);
     root.addChild(board);

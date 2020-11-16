@@ -51,7 +51,7 @@ function App() {
       setGameId(data.id);
       numPlayer = data.numPlayer;
       setPositionPlayer(data.position);
-      game = new Game(socket,data.id,numPlayer);
+      game = new Game(socket,data.id,numPlayer,data.position.length);
       //game.UpdatePosition(data.position);
 
       setgameStart(true);
