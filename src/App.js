@@ -127,7 +127,8 @@ function App() {
         <div class="container-main">
             <div class="row text-center">
                 <div class="col section-1 section-description">
-                    <h1>PONG ROYAL</h1>
+                    <h1 class="gametitle" style={{fontSize: "5em", marginBottom: 0}}>PONG</h1>
+                    <h4 class="gametitle">THE BATTLE ROYALE</h4>
 
 
 
@@ -137,7 +138,7 @@ function App() {
 
                 </div>
             </div>
-            <div class="div-wrapper d-flex justify-content-center align-items-center">
+            {/*<div class="div-wrapper d-flex justify-content-center align-items-center">
               <div class="row">
                   <div class="col-10 offset-1 col-lg-8 offset-lg-2 d-flex justify-content-center align-items-center">
                     <div class="input-pseudo  mr-2">
@@ -151,7 +152,27 @@ function App() {
                   {printImReady()}
                 </div>
               </div>
-            </div>
+            </div>*/}
+
+              <div class="modal-dialog glowing" role="document">
+                <div class="modal-content card border-info">
+                  <div class="modal-body">
+                    <div class="row">
+                      <div class="col-10 offset-1 col-lg-8 offset-lg-2 d-flex justify-content-center align-items-center">
+                        <div class="input-pseudo  mr-2">
+                          <input id="pseudo" type="text" class="form-control" aria-label="Pseudo" placeholder="Pseudo" aria-describedby="inputGroup-sizing"/>
+                        </div>
+                        <button onClick={(btn) => {if(!imready){socket.emit("player ready",{pseudo:document.getElementById("pseudo").value});setimready(true);}}} type="button" class="btn btn-info" disabled={false}>I'm ready</button>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col mt-2">
+                        {printImReady()}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
             <ResultScreen show={showResult}/>
             <button onClick={(btn) => {generateGame()}} type="button" class="btn btn-danger">GENERATE GAME</button>

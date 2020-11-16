@@ -1,3 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Stalinist+One&display=swap');
+
+.gametitle{
+  font-family: 'Stalinist One', cursive;
+  color: white;
+}
+
+.glowing{
+  box-shadow: 0 1rem 5rem rgba(34,201,187,0.500);
+  border-radius: 1rem;
+}
+
 .title {
   display: flex;
   justify-content: center;
