@@ -1,9 +1,5 @@
 import './App.css';
 
-import { memo } from "react";
-import { Application } from "pixi.js";
-
-
 import React, { useState, useEffect } from "react";
 import socketIOClient from "socket.io-client";
 
