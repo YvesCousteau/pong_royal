@@ -68,7 +68,7 @@ function App() {
   }, []);
 
   const printImReady = () => {
-    if(imready){ 
+    if(imready){
       return (<span class="text-danger">You are ready !</span>);
     }else{
       return null;
@@ -76,7 +76,7 @@ function App() {
   }
 
   const printInfo = () => {
-    if(waitingPlayer >= 3){ 
+    if(waitingPlayer >= 3){
       return (<p>Game will start in {timeoutGamestart}s</p>);
     }else{
       return (<p>required minimum 3 players</p>);
@@ -158,10 +158,14 @@ function App() {
   }else{
     return (
       <div class="section-1-container section-container m-4">
+
         <div class="container">
             <div class="row text-center">
                 <div class="col section-1 section-description">
                     <h1>PONG ROYAL</h1>
+
+
+
                     <div class="divider-1"><span></span></div>
                     <p>Waiting for players <b>{waitingPlayer}/10</b></p>
                     {printInfo()}
@@ -174,7 +178,7 @@ function App() {
                     <div class="input-pseudo  mr-2">
                       <input id="pseudo" type="text" class="form-control" aria-label="Pseudo" placeholder="Pseudo" aria-describedby="inputGroup-sizing"/>
                     </div>
-                    <button onClick={(btn) => {if(!imready){socket.emit("player ready",{pseudo:document.getElementById("pseudo").value});setimready(true);}}} type="button" class="btn btn-info" disabled={false}>I'm ready</button>                  
+                    <button onClick={(btn) => {if(!imready){socket.emit("player ready",{pseudo:document.getElementById("pseudo").value});setimready(true);}}} type="button" class="btn btn-info" disabled={false}>I'm ready</button>
                   </div>
               </div>
               <div class="row">
@@ -187,8 +191,40 @@ function App() {
             <ResultScreen show={showResult}/>
 
 
-            <button onClick={(btn) => {generateGame()}} type="button" class="btn btn-danger mt-5">GENERATE GAME</button>                  
+            <button onClick={(btn) => {generateGame()}} type="button" class="btn btn-danger mt-5">GENERATE GAME</button>
 
+            <div>
+            <div class="scene">
+              <div class="container">
+                <div class="sun"></div>
+                  <div class="band s0"></div>
+                  <div class="band s01"></div>
+                  <div class="band s1"></div>
+                  <div class="band s11"></div>
+                  <div class="band s2"></div>
+                  <div class="band s21"></div>
+                  <div class="band s3"></div>
+                  <div class="band s31"></div>
+                  <div class="band s4"></div>
+                  <div class="band s41"></div>
+                  <div class="band s5"></div>
+                  <div class="band s51"></div>
+                  <div class="band s6"></div>
+                  <div class="band s61"></div>
+                  <div class="band s7"></div>
+                  <div class="band s71"></div>
+                  <div class="band s8"></div>
+                  <div class="band s81"></div>
+                  <div class="band s9"></div>
+                  <div class="band s91"></div>
+                  <div class="band s10"></div>
+                  <div class="band s101"></div>
+                  <div class="band s11_"></div>
+                  <div class="band s111"></div>
+
+                </div>
+            </div>
+          </div>
         </div>
       </div>
     );
