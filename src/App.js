@@ -64,7 +64,7 @@ function App() {
 
   const printImReady = () => {
     if(imready){
-      return (<span class="text-danger">You are ready !</span>);
+      return (<center><span class="text-danger" style={{fontSize: "1em", fontFamily: "Oxanium"}}>You are ready !</span></center>);
     }else{
       return null;
     }
@@ -102,6 +102,8 @@ function App() {
       <div>
 
         <ModalScore show={true}/>
+        <ResultScreen show={showResult}/>
+
 
         <ul class="playerpos">MovePlayer (socket.io)
           <li>p0 : {positionPlayer[0] ? positionPlayer[0] : 0}</li>
@@ -162,7 +164,19 @@ function App() {
                         <div class="input-pseudo  mr-2">
                           <input id="pseudo" type="text" class="form-control" aria-label="Pseudo" placeholder="Pseudo" aria-describedby="inputGroup-sizing"/>
                         </div>
-                        <button onClick={(btn) => {if(!imready){socket.emit("player ready",{pseudo:document.getElementById("pseudo").value});setimready(true);}}} type="button" class="btn btn-info" disabled={false}>I'm ready</button>
+                        <button 
+                          type="button" class="btn btn-info" disabled={imready}
+                          onClick={(btn) => {
+                            if (!imready) {
+                              socket.emit("player ready", {
+                                pseudo: document.getElementById("pseudo").value
+                              });
+                              setimready(true);
+                            }
+                          }}
+                        >
+                          I'm ready
+                        </button>
                       </div>
                     </div>
                     <div class="row">
@@ -174,7 +188,8 @@ function App() {
                 </div>
               </div>
 
-            <ResultScreen show={showResult}/>
+            <ModalScore show={imready} loading={true}/>
+
             <button onClick={(btn) => {generateGame()}} type="button" class="btn btn-danger">GENERATE GAME</button>
 
           <div>
