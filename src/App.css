@@ -111,11 +111,6 @@ html, body {
 input[type="checkbox"] {
   display: none;
 }
-input[type="checkbox"]:checked ~ label {
-  -webkit-transform: translate(0, -0.65em);
-          transform: translate(0, -0.65em);
-  padding-bottom: 0.65em;
-}
 input[type="checkbox"]:checked ~ .scene {
   background-color: #00ffff;
   -webkit-animation: hue-rotate 60s linear infinite 0s;

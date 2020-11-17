@@ -1,18 +1,18 @@
 import { Container, Graphics } from "pixi.js";
 
 
-function drawPolygone(size,color,side,x,y){
+function drawPolygone(size,color,side,arena){
   let r = size;
   let width = 5;
 
   const graphic = new Graphics();
   graphic.lineStyle(width,color-0x222222);
-  graphic.moveTo(x[0], y[0]);
+  graphic.moveTo(arena[0][0], arena[0][1]);
   for(let i=0; i<side;i++){
-    graphic.lineTo(x[i], y[i]);
-    graphic.moveTo(x[i], y[i]);
+    graphic.lineTo(arena[i][0], arena[i][1]);
+    graphic.moveTo(arena[i][0], arena[i][1]);
   }
-  graphic.lineTo(x[0], y[0]);
+  graphic.lineTo(arena[0][0], arena[0][1]);
 
   //console.log(x);console.log(y);
   return graphic;
@@ -33,10 +33,14 @@ function getAlpha(xa,xb,ya,yb){
   return Math.atan2((ya-yb),(xa-xb))+Math.PI;
 }
 
-function drawBarPlayer(numPlayer,nbPlayers,color,x,y,barwidth){
-  let centerX = ( x[numPlayer] + x[(numPlayer+1)%nbPlayers]  )/2;
-  let centerY = ( y[numPlayer] + y[(numPlayer+1)%nbPlayers]  )/2;
-  let alpha = getAlpha(x[numPlayer],x[(numPlayer+1)%nbPlayers],y[numPlayer],y[(numPlayer+1)%nbPlayers]);
+function drawBarPlayer(numPlayer,nbPlayers,color,arena,barwidth){
+  let centerX = ( arena[numPlayer][0] + arena[(numPlayer+1)%nbPlayers][0] )/2;
+
+  let centerY = ( arena[numPlayer][1] + arena[(numPlayer+1)%nbPlayers][1] )/2;
+  let alpha = getAlpha(arena[numPlayer][0],
+    arena[(numPlayer+1)%nbPlayers][0],
+    arena[numPlayer][1],
+    arena[(numPlayer+1)%nbPlayers][1]);
 
   let width = 10;
 
@@ -44,7 +48,7 @@ function drawBarPlayer(numPlayer,nbPlayers,color,x,y,barwidth){
   //graphic.rotation = alpha;
 
   graphic.beginFill(color);
-  graphic.drawRect(0, 0, barwidth, width)
+  graphic.drawRect(-barwidth/2, 0, barwidth, width)
   graphic.endFill();
 
 
@@ -59,11 +63,10 @@ function drawBarPlayer(numPlayer,nbPlayers,color,x,y,barwidth){
 var barPlayer = null;
 var balles = null;
 
-function Board(color,nbPlayers,numPlayer,tabx,taby,barwidth,nbBalle) {
+function Board(color,nbPlayers,numPlayer,a,barwidth,nbBalle) {
   const board = new Container();
-  const x = tabx;
-  const y = taby;
-  const plateau2 = drawPolygone(400,color,nbPlayers,x,y);
+  const arena = a;
+  const plateau2 = drawPolygone(400,color,nbPlayers,arena);
   board.addChild(plateau2);
 
   barPlayer = new Array(nbPlayers);
@@ -74,7 +77,7 @@ function Board(color,nbPlayers,numPlayer,tabx,taby,barwidth,nbBalle) {
       colorBar = 0xe91e63;
     else
       colorBar = color;
-    barPlayer[i] = drawBarPlayer(i,nbPlayers,colorBar,x,y,barwidth);
+    barPlayer[i] = drawBarPlayer(i,nbPlayers,colorBar,arena,barwidth);
     board.addChild(barPlayer[i]);
   }
 
@@ -99,7 +102,7 @@ function MouvePlayer(numPlayer,offset){
 
 function MouveBalle(i,offset){
   if (balles[i]){
-    balles[i].pivot.set(offset.x,offset.y);
+    balles[i].pivot.set(offset[0],offset[1]);
   }
 }
 

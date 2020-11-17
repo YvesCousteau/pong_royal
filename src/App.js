@@ -7,10 +7,12 @@ import Canvas from "./Canvas";
 import Game from "./Game";
 
 import {ResultScreen, ModalScore} from "./ResultScreen";
+import { StartBackgroundSound } from "./SoundPlayer";
+import { UserSettings } from "./UserSettings";
 
-import './bootstrap.css'
+import './assets/bootstrap.css'
 
-const ENDPOINT = "http://vct.xyz:4001";
+const ENDPOINT = "http://localhost:4001";
 
 const config = {
   width: 1920,
@@ -21,6 +23,8 @@ const config = {
 const socket = socketIOClient(ENDPOINT, {transports: ['websocket', 'polling', 'flashsocket']});
 let game = null;
 let numPlayer = 0;
+
+// StartBackgroundSound();
 
 function App() {
 
@@ -48,23 +52,23 @@ function App() {
       setGameId(data.id);
       numPlayer = data.numPlayer;
       setPositionPlayer(data.position);
-      game = new Game(socket,data.id,numPlayer,data.position.length,data.x,data.y,data.barWidth,3);
-      //game.UpdatePosition(data.position);
+      game = new Game(socket,data.id,numPlayer,data.position.length,data.arena,data.barWidth,data.balls.length);
       setgameStart(true);
     });
 
     socket.on("Update game", data => {
       setPositionPlayer(data.pos);
       game.UpdatePositionPlayer(data.pos);
-      game.UpdatePositionBalle(data.ballePosition);
-    });
+      game.UpdatePositionBalle(data.balls);
+    }); 
+
 
     return () => socket.disconnect();
   }, []);
 
   const printImReady = () => {
     if(imready){
-      return (<center><span class="text-danger" style={{fontSize: "1em", fontFamily: "Oxanium"}}>You are ready !</span></center>);
+      return (<center><span className="text-danger" style={{fontSize: "1em", fontFamily: "Oxanium"}}>You are ready !</span></center>);
     }else{
       return null;
     }
@@ -81,19 +85,21 @@ function App() {
 
   const generateGame = () => {
 
+    socket.emit("generate game",null);
+    /*
     setGameId(1);
     numPlayer = 3;
     setPositionPlayer([0,0,0,0,0]);
 
-    let x = new Array(5);
-    let y = new Array(5);
+    let arena = new Array(5);
     for(let i=0; i<5;i++){
-      x[i] = 400 * Math.cos(2*Math.PI*(i+1)/5)
-      y[i] = 400 * Math.sin(2*Math.PI*(i+1)/5)
+      arena[i] = [400 * Math.cos(2*Math.PI*(i+1)/5),400 * Math.sin(2*Math.PI*(i+1)/5)];
     }
-    game = new Game(socket,1,numPlayer,5,x,y,50,3);
+    
+    game = new Game(socket,1,numPlayer,5,arena,50,3);
 
     setgameStart(true);
+    */
   }
 
 
@@ -105,7 +111,7 @@ function App() {
         <ResultScreen show={showResult}/>
 
 
-        <ul class="playerpos">MovePlayer (socket.io)
+        <ul className="playerpos">MovePlayer (socket.io)
           <li>p0 : {positionPlayer[0] ? positionPlayer[0] : 0}</li>
           <li>p1 : {positionPlayer[1]? positionPlayer[1] : 0}</li>
           <li>p2 : {positionPlayer[2]? positionPlayer[2] : 0}</li>
@@ -124,38 +130,41 @@ function App() {
     );
   }else{
     return (
-      <div class="section-1-container section-container m-4">
+      <div className="section-1-container section-container m-4">
 
-        <div class="container-main">
-            <div class="row text-center">
-                <div class="col section-1 section-description">
-                    <h1 class="gametitle" style={{fontSize: "5em", marginBottom: 0}}>PONG</h1>
-                    <h4 class="gametitle">THE BATTLE ROYALE</h4>
+        <UserSettings show={false}/>
+
+        <div className="container-main">
+            <div className="row text-center">
+                <div className="col section-1 section-description">
+                    <h1 className="gametitle" style={{fontSize: "5em", marginBottom: 0}}>PONG</h1>
+                    <h4 className="gametitle">THE BATTLE ROYALE</h4>
 
 
 
-                    <div class="divider-1"><span></span></div>
+                    <div className="divider-1"><span></span></div>
                     <p>Waiting for players <b>{waitingPlayer}/10</b></p>
                     {printInfo()}
 
                 </div>
             </div>
-            {/*<div class="div-wrapper d-flex justify-content-center align-items-center">
-              <div class="row">
-                  <div class="col-10 offset-1 col-lg-8 offset-lg-2 d-flex justify-content-center align-items-center">
-                    <div class="input-pseudo  mr-2">
-                      <input id="pseudo" type="text" class="form-control" aria-label="Pseudo" placeholder="Pseudo" aria-describedby="inputGroup-sizing"/>
+            {/*<div className="div-wrapper d-flex justify-content-center align-items-center">
+              <div className="row">
+                  <div className="col-10 offset-1 col-lg-8 offset-lg-2 d-flex justify-content-center align-items-center">
+                    <div className="input-pseudo  mr-2">
+                      <input id="pseudo" type="text" className="form-control" aria-label="Pseudo" placeholder="Pseudo" aria-describedby="inputGroup-sizing"/>
                     </div>
-                    <button onClick={(btn) => {if(!imready){socket.emit("player ready",{pseudo:document.getElementById("pseudo").value});setimready(true);}}} type="button" class="btn btn-info" disabled={false}>I'm ready</button>
+                    <button onClick={(btn) => {if(!imready){socket.emit("player ready",{pseudo:document.getElementById("pseudo").value});setimready(true);}}} type="button" className="btn btn-info" disabled={false}>I'm ready</button>
                   </div>
               </div>
-              <div class="row">
-                <div class="col mt-2">
+              <div className="row">
+                <div className="col mt-2">
                   {printImReady()}
                 </div>
               </div>
             </div>*/}
 
+<<<<<<< HEAD
 
 
               <div class=" glowing  " role="document">
@@ -169,6 +178,18 @@ function App() {
                         </div>
                         <button
                           type="button" class="glow-on-hover btn btn-info justify-content-center align-items-center mt-2 " disabled={imready}
+=======
+              <div className="modal-dialog glowing" role="document">
+                <div className="modal-content card border-info">
+                  <div className="modal-body">
+                    <div className="row">
+                      <div className="col-10 offset-1 col-lg-8 offset-lg-2 d-flex justify-content-center align-items-center">
+                        <div className="input-pseudo  mr-2">
+                          <input id="pseudo" type="text" className="form-control" aria-label="Pseudo" placeholder="Pseudo" aria-describedby="inputGroup-sizing"/>
+                        </div>
+                        <button
+                          type="button" className="btn btn-info" disabled={imready}
+>>>>>>> 4317dba1f6b3c3dde16717233058c5c9cb90a819
                           onClick={(btn) => {
                             if (!imready) {
                               socket.emit("player ready", {
@@ -182,8 +203,8 @@ function App() {
                         </button>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col mt-2">
+                    <div className="row">
+                      <div className="col mt-2">
                         {printImReady()}
                       </div>
                     </div>
@@ -195,6 +216,7 @@ function App() {
 
             <ModalScore show={imready} loading={true}/>
 
+<<<<<<< HEAD
 
             <button onClick={(btn) => {generateGame()}} type="button" class="glow-on-hover btn btn-danger">GENERATE GAME</button>
 
@@ -222,6 +244,34 @@ function App() {
                 <div class="band s16"></div>
                 <div class="band s17"></div>
                 <div class="band s18"></div>
+=======
+            <button onClick={(btn) => {generateGame()}} type="button" className="btn btn-danger">GENERATE GAME</button>
+
+          <div>
+            <div className="scene">
+              <div className="container">
+                <div className="sun"></div>
+                <div className="band s0"></div>
+                <div className="band s1"></div>
+                <div className="band s2"></div>
+                <div className="band s3"></div>
+                <div className="band s4"></div>
+                <div className="band s5"></div>
+                <div className="band s6"></div>
+                <div className="band s7"></div>
+                <div className="band s8"></div>
+                <div className="band s9"></div>
+                <div className="band s10"></div>
+                <div className="band s11_"></div>
+                <div className="band s12"></div>
+                <div className="band s13"></div>
+                <div className="band s14"></div>
+                <div className="band s15"></div>
+                <div className="band s16"></div>
+                <div className="band s17"></div>
+                <div className="band s18"></div>
+
+>>>>>>> 4317dba1f6b3c3dde16717233058c5c9cb90a819
               </div>
             </div>
           </div>
