@@ -1,3 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Stalinist+One&display=swap');
+
+.gametitle{
+  font-family: 'Stalinist One', cursive;
+  color: white;
+}
+
+.glowing{
+  box-shadow: 0 1rem 5rem rgba(34,201,187,0.500);
+  border-radius: 1rem;
+}
+
 .title {
   display: flex;
   justify-content: center;
@@ -61,11 +73,6 @@ html, body {
 
 input[type="checkbox"] {
   display: none;
-}
-input[type="checkbox"]:checked ~ label {
-  -webkit-transform: translate(0, -0.65em);
-          transform: translate(0, -0.65em);
-  padding-bottom: 0.65em;
 }
 input[type="checkbox"]:checked ~ .scene {
   background-color: #00ffff;
@@ -142,7 +149,7 @@ label {
   height: 9%;
   background: #000c16;
   -webkit-animation: wave 10s linear infinite;
-          animation: wave 12s linear infinite;
+          animation: wave 18s linear infinite;
 }
 
 @-webkit-keyframes wave {
@@ -235,53 +242,30 @@ label {
   animation-delay: -11s
 }
 
-/* -------------------- */
-
-.s01 {
-  animation-delay: -0.5s
+.s12 {
+  animation-delay: -12s
 }
 
-.s11 {
-  animation-delay: -1.5s
+.s13{
+  animation-delay: -13s
 }
 
-.s21 {
-  animation-delay: -2.5s
+.s14{
+  animation-delay: -14s
 }
 
-.s31 {
-  animation-delay: -3.5s
+.s15{
+  animation-delay: -15s
 }
 
-.s41 {
-  animation-delay: -4.5s
+.s16{
+  animation-delay: -16s
 }
 
-.s51 {
-  animation-delay: -5.5s
+.s17{
+  animation-delay: -17s
 }
 
-
-.s61 {
-  animation-delay: -6.5s
-}
-
-.s71 {
-  animation-delay: -7.5s
-}
-
-.s81 {
-  animation-delay: -8.5s
-}
-
-.s91 {
-  animation-delay: -9.5s
-}
-
-.s101 {
-  animation-delay: -10.5s
-}
-
-.s111 {
-  animation-delay: -11.5s
+.s18{
+  animation-delay: -18s
 }

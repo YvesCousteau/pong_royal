@@ -72,16 +72,25 @@ const ModalScore = (props) => {
       <ul style={{position: "absolute", top: "10px", right: "10px", width: "200px"}} className="modal-dialog card border-info list-group">
         <li className="list-group-item d-flex justify-content-between align-items-center text-info" style={{fontFamily: "Oxanium"}}>
           Emixx
-          <span className="badge badge-primary badge-pill text-danger" style={{fontSize: "1em", fontFamily: "Oxanium"}}>14</span>
+          { !props.loading && <span className="badge badge-primary badge-pill text-danger" style={{fontSize: "1em", fontFamily: "Oxanium"}}>14</span>}
         </li>
         <li className="list-group-item d-flex justify-content-between align-items-center text-info" style={{fontFamily: "Oxanium"}}>
           Cousteau
-          <span className="badge badge-primary badge-pill text-danger" style={{fontSize: "1em", fontFamily: "Oxanium"}}>69</span>
+          { !props.loading && <span className="badge badge-primary badge-pill text-danger" style={{fontSize: "1em", fontFamily: "Oxanium"}}>69</span>}
         </li>
         <li className="list-group-item d-flex justify-content-between align-items-center text-info" style={{fontFamily: "Oxanium"}}>
           T3rruss
-          <span className="badge badge-primary badge-pill text-danger" style={{fontSize: "1em", fontFamily: "Oxanium"}}>420</span>
+          { !props.loading && <span className="badge badge-primary badge-pill text-danger" style={{fontSize: "1em", fontFamily: "Oxanium"}}>420</span>}
         </li>
+        { props.loading &&
+          <li className="list-group-item text-info">
+            <center>
+              <div class="spinner-grow" role="status">
+                <span class="sr-only">Waiting for players...</span>
+              </div>
+            </center>
+          </li> 
+        }
       </ul>
     )
 
