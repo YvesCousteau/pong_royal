@@ -10,7 +10,7 @@ import {ResultScreen, ModalScore} from "./ResultScreen";
 
 import './bootstrap.css'
 
-const ENDPOINT = "http://vct.xyz:4001";
+const ENDPOINT = "http://localhost:4001";
 
 const config = {
   width: 1920,
@@ -48,15 +48,15 @@ function App() {
       setGameId(data.id);
       numPlayer = data.numPlayer;
       setPositionPlayer(data.position);
-      game = new Game(socket,data.id,numPlayer,data.position.length,data.x,data.y,data.barWidth,3);
-      //game.UpdatePosition(data.position);
+      game = new Game(socket,data.id,numPlayer,data.position.length,data.arena,data.barWidth,data.balls.length);
       setgameStart(true);
     });
 
     socket.on("Update game", data => {
       setPositionPlayer(data.pos);
       game.UpdatePositionPlayer(data.pos);
-      game.UpdatePositionBalle(data.ballePosition);
+      game.UpdatePositionBalle(data.balls);
+      console.log(data.balls[0]);
     }); 
 
     return () => socket.disconnect();
@@ -81,19 +81,21 @@ function App() {
 
   const generateGame = () => {
 
+    socket.emit("generate game",null);
+    /*
     setGameId(1);
     numPlayer = 3;
     setPositionPlayer([0,0,0,0,0]);
 
-    let x = new Array(5);
-    let y = new Array(5);
+    let arena = new Array(5);
     for(let i=0; i<5;i++){
-      x[i] = 400 * Math.cos(2*Math.PI*(i+1)/5)
-      y[i] = 400 * Math.sin(2*Math.PI*(i+1)/5)
+      arena[i] = [400 * Math.cos(2*Math.PI*(i+1)/5),400 * Math.sin(2*Math.PI*(i+1)/5)];
     }
-    game = new Game(socket,1,numPlayer,5,x,y,50,3);
+    
+    game = new Game(socket,1,numPlayer,5,arena,50,3);
 
     setgameStart(true);
+    */
   }
 
 

@@ -11,25 +11,23 @@ let gameId = null;
 let numPlayer = 0;
 let nbPlayer = 0;
 let nbBalle = 0;
-let x = [];
-let y = [];
+let arena = [];
 let barWidth = 0;
 
 
 let positionPlayer = [0,0,0,0,0,0,0,0,0,0];
-let positionBalle = [{x:0,y:0}];
+let balls = [{pos:[0,0]}];
 
 
 class game {
 
-  constructor(s,idG,n,nbp,tabx,taby,barwidth,nbb){
+  constructor(s,idG,n,nbp,a,barwidth,nbb){
     socket = s;
     gameId = idG;
     numPlayer = n;
     nbPlayer = nbp;
     nbBalle = nbb;
-    x = tabx;
-    y = taby;
+    arena = a;
     barWidth = barwidth;
     console.log("start GameId : "+gameId+ " num player: "+numPlayer);
     //this.init(game);
@@ -46,7 +44,7 @@ class game {
     root.addChild(background);
     */
 
-    let board = Board(0x4CD2CA,nbPlayer,numPlayer,x,y,barWidth,nbBalle);
+    let board = Board(0x4CD2CA,nbPlayer,numPlayer,arena,barWidth,nbBalle);
     board.position.set(screen.width / 2, (screen.height * 43) / 100);
     root.addChild(board);
 
@@ -79,15 +77,14 @@ class game {
     }
 
   }
-  UpdatePositionBalle(p){
-
-    positionBalle = p;
-    if(positionBalle){
-      for (let i = 0;i<positionBalle.length;i++){
-        MouveBalle(i,positionBalle[i]);
+  UpdatePositionBalle(b){
+    balls = b;
+    if(balls){
+      for (let i = 0;i<balls.length;i++){
+        MouveBalle(i,balls[i].pos);
       }
     }else{
-      console.log("[UpdatePositionBalle] Empty positionBalle");
+      console.log("[UpdatePositionBalle] Empty balls");
     }
   }
 
