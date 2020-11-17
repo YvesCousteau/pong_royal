@@ -156,16 +156,19 @@ function App() {
               </div>
             </div>*/}
 
-              <div class="modal-dialog glowing" role="document">
-                <div class="modal-content card border-info">
-                  <div class="modal-body">
-                    <div class="row">
-                      <div class="col-10 offset-1 col-lg-8 offset-lg-2 d-flex justify-content-center align-items-center">
-                        <div class="input-pseudo  mr-2">
-                          <input id="pseudo" type="text" class="form-control" aria-label="Pseudo" placeholder="Pseudo" aria-describedby="inputGroup-sizing"/>
+
+
+              <div class=" glowing  " role="document">
+                <div class=" border-info ">
+                  <div class="modal-body div-log">
+                    <div class="row ">
+                      <div class="col-10 offset-1 col-2 mx-auto d-flex justify-content-center align-items-center">
+                        <div class="form__group field  mr-2 mb-4 " >
+                          <input type="input" class="form__field" aria-label="Pseudo" placeholder="Pseudo" name="name" id='name' aria-describedby="inputGroup-sizing" required/>
+                          <label for="name" class="form__label">Pseudo</label>
                         </div>
                         <button
-                          type="button" class="btn btn-info" disabled={imready}
+                          type="button" class="glow-on-hover btn btn-info justify-content-center align-items-center mt-2 " disabled={imready}
                           onClick={(btn) => {
                             if (!imready) {
                               socket.emit("player ready", {
@@ -188,9 +191,13 @@ function App() {
                 </div>
               </div>
 
+
+
             <ModalScore show={imready} loading={true}/>
 
-            <button onClick={(btn) => {generateGame()}} type="button" class="btn btn-danger">GENERATE GAME</button>
+
+            <button onClick={(btn) => {generateGame()}} type="button" class="glow-on-hover btn btn-danger">GENERATE GAME</button>
+
 
           <div>
             <div class="scene">
@@ -215,7 +222,6 @@ function App() {
                 <div class="band s16"></div>
                 <div class="band s17"></div>
                 <div class="band s18"></div>
-
               </div>
             </div>
           </div>
