@@ -8,7 +8,7 @@ import Game from "./Game";
 
 import {ResultScreen, ModalScore} from "./ResultScreen";
 
-import './bootstrap.css'
+import './assets/bootstrap.css'
 
 const ENDPOINT = "http://vct.xyz:4001";
 
@@ -21,6 +21,25 @@ const config = {
 const socket = socketIOClient(ENDPOINT, {transports: ['websocket', 'polling', 'flashsocket']});
 let game = null;
 let numPlayer = 0;
+
+intro = new Audio('./assets/intro'); 
+loop = new Audio('someSound.ogg'); 
+
+intro.addEventListener('ended', function() {
+    if (typeof loop.loop == 'boolean') {
+        loop.loop = true;
+    }
+    else {
+        loop.addEventListener('ended', function() {
+            this.currentTime = 0;
+            this.play();
+        }, false);
+    }
+    loop.play();
+}, false);
+
+intro.play();
+
 
 function App() {
 
