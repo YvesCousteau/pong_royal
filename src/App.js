@@ -134,20 +134,26 @@ function App() {
 
         <UserSettings show={false}/>
 
+        <div class="glowing info_game" role="document" >
+          <div className="row text-center ">
+              <div className="col section-1 section-description mt-2">
+                  <div className="divider-1"><span></span></div>
+                  <p>Waiting for players <b>{waitingPlayer}/10</b></p>
+                  {printInfo()}
+
+              </div>
+          </div>
+        </div>
+
         <div className="container-main">
             <div className="row text-center">
                 <div className="col section-1 section-description">
                     <h1 className="gametitle" style={{fontSize: "5em", marginBottom: 0}}>PONG</h1>
                     <h4 className="gametitle">THE BATTLE ROYALE</h4>
-
-
-
-                    <div className="divider-1"><span></span></div>
-                    <p>Waiting for players <b>{waitingPlayer}/10</b></p>
-                    {printInfo()}
-
                 </div>
             </div>
+
+
             {/*<div className="div-wrapper d-flex justify-content-center align-items-center">
               <div className="row">
                   <div className="col-10 offset-1 col-lg-8 offset-lg-2 d-flex justify-content-center align-items-center">
@@ -165,7 +171,7 @@ function App() {
             </div>*/}
 
 
-              <div class=" glowing  " role="document">
+              <div class=" glowing size  " role="document">
                 <div class=" border-info ">
                   <div class="modal-body div-log">
                     <div class="row ">
@@ -197,6 +203,8 @@ function App() {
                   </div>
                 </div>
               </div>
+
+
 
 
 

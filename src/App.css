@@ -6,22 +6,29 @@
 }
 
 .glowing{
-  box-shadow: 0 1rem 5rem rgba(64, 64, 64,0.9);
+
   border-radius: 1rem;
   background: rgba(0, 12, 22,0.8);
   border: 0.2rem solid;
 
   margin: 40px;
-  min-width: 35em;
+
 
   border-color: rgba(64, 64, 64,1);
   animation: glowing 20s linear infinite;
-  /* opacity: 0; */
-  /* transition: opacity .3s ease-in-out; */
+}
 
-  /* box-shadow: 0 1rem 5rem (linear-gradient(#ffcb55 0, #ff00c8 10%)); */
+.size {
+  min-width: 35em;
+  box-shadow: 0 1rem 5rem rgba(64, 64, 64,0.9);
+}
 
+.info_game {
 
+  max-width: 20em;
+  margin-top: -20em;
+  margin-left: 10em;
+  margin-bottom: 8em;
 }
 
 .title {
