@@ -7,7 +7,7 @@ const UserSettings = (props) => {
 
   return (
     <div style={settingsStyle.button}>
-      <button 
+      <button
         type="button" className="btn btn-outline-warning" style={{borderRadius: "50%"}}
         onClick={()=>{setShowSettings(!showSettings)}}
       >
@@ -15,7 +15,7 @@ const UserSettings = (props) => {
       </button>
 
       { (props.show || showSettings ) &&
-        <div className="card border-warning mb-3" style={settingsStyle.div}>
+        <div className="card border-warning" style={settingsStyle.div}>
           <div className="card-header">Settings</div>
           <div className="card-body">
             <h4 className="card-title">Warning card title</h4>
@@ -42,7 +42,7 @@ const UserSettings = (props) => {
 const settingsStyle = {
   button: {
     position: "absolute",
-    top: 20, right: 20,
+    top: 20, left: 20,
   },
   div: {
     zIndex: 1000,
