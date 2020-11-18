@@ -162,7 +162,7 @@ function App() {
                           <label for="name" class="form__label">Pseudo</label>
                         </div>
                         <button
-                          type="button" class="glow-on-hover btn btn-info justify-content-center align-items-center mt-2 " disabled={imready}
+                          type="button" class="glow-on-hover btn btn-info justify-content-center align-items-center mt-2 " 
                           onClick={(btn) => {
                             if (!imready) {
                               socket.emit("player ready", {
