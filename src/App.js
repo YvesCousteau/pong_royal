@@ -60,7 +60,7 @@ function App() {
       setPositionPlayer(data.pos);
       game.UpdatePositionPlayer(data.pos);
       game.UpdatePositionBalle(data.balls);
-    }); 
+    });
 
 
     return () => socket.disconnect();
@@ -95,7 +95,7 @@ function App() {
     for(let i=0; i<5;i++){
       arena[i] = [400 * Math.cos(2*Math.PI*(i+1)/5),400 * Math.sin(2*Math.PI*(i+1)/5)];
     }
-    
+
     game = new Game(socket,1,numPlayer,5,arena,50,3);
 
     setgameStart(true);
@@ -134,20 +134,26 @@ function App() {
 
         <UserSettings show={false}/>
 
+        <div class="glowing info_game" role="document" >
+          <div className="row text-center ">
+              <div className="col section-1 section-description mt-2">
+                  <div className="divider-1"><span></span></div>
+                  <p>Waiting for players <b>{waitingPlayer}/10</b></p>
+                  {printInfo()}
+
+              </div>
+          </div>
+        </div>
+
         <div className="container-main">
             <div className="row text-center">
                 <div className="col section-1 section-description">
                     <h1 className="gametitle" style={{fontSize: "5em", marginBottom: 0}}>PONG</h1>
                     <h4 className="gametitle">THE BATTLE ROYALE</h4>
-
-
-
-                    <div className="divider-1"><span></span></div>
-                    <p>Waiting for players <b>{waitingPlayer}/10</b></p>
-                    {printInfo()}
-
                 </div>
             </div>
+
+
             {/*<div className="div-wrapper d-flex justify-content-center align-items-center">
               <div className="row">
                   <div className="col-10 offset-1 col-lg-8 offset-lg-2 d-flex justify-content-center align-items-center">
@@ -164,16 +170,18 @@ function App() {
               </div>
             </div>*/}
 
-              <div className="modal-dialog glowing" role="document">
-                <div className="modal-content card border-info">
-                  <div className="modal-body">
-                    <div className="row">
-                      <div className="col-10 offset-1 col-lg-8 offset-lg-2 d-flex justify-content-center align-items-center">
-                        <div className="input-pseudo  mr-2">
-                          <input id="pseudo" type="text" className="form-control" aria-label="Pseudo" placeholder="Pseudo" aria-describedby="inputGroup-sizing"/>
+
+              <div class=" glowing size  " role="document">
+                <div class=" border-info ">
+                  <div class="modal-body div-log">
+                    <div class="row ">
+                      <div class="col-10 offset-1 col-2 mx-auto d-flex justify-content-center align-items-center">
+                        <div class="form__group field  mr-2 mb-4 " >
+                          <input type="input" class="form__field" aria-label="Pseudo" placeholder="Pseudo" name="name" id='name' aria-describedby="inputGroup-sizing" required/>
+                          <label for="name" class="form__label">Pseudo</label>
                         </div>
                         <button
-                          type="button" className="btn btn-info" disabled={imready}
+                          type="button" class="glow-on-hover btn btn-info justify-content-center align-items-center mt-2 " disabled={imready}
                           onClick={(btn) => {
                             if (!imready) {
                               socket.emit("player ready", {
@@ -196,34 +204,39 @@ function App() {
                 </div>
               </div>
 
+
+
+
+
             <ModalScore show={imready} loading={true}/>
 
-            <button onClick={(btn) => {generateGame()}} type="button" className="btn btn-danger">GENERATE GAME</button>
+
+            <button onClick={(btn) => {generateGame()}} type="button" class="glow-on-hover btn btn-danger">GENERATE GAME</button>
+
 
           <div>
-            <div className="scene">
-              <div className="container">
-                <div className="sun"></div>
-                <div className="band s0"></div>
-                <div className="band s1"></div>
-                <div className="band s2"></div>
-                <div className="band s3"></div>
-                <div className="band s4"></div>
-                <div className="band s5"></div>
-                <div className="band s6"></div>
-                <div className="band s7"></div>
-                <div className="band s8"></div>
-                <div className="band s9"></div>
-                <div className="band s10"></div>
-                <div className="band s11_"></div>
-                <div className="band s12"></div>
-                <div className="band s13"></div>
-                <div className="band s14"></div>
-                <div className="band s15"></div>
-                <div className="band s16"></div>
-                <div className="band s17"></div>
-                <div className="band s18"></div>
-
+            <div class="scene">
+              <div class="container">
+                <div class="sun"></div>
+                <div class="band s0"></div>
+                <div class="band s1"></div>
+                <div class="band s2"></div>
+                <div class="band s3"></div>
+                <div class="band s4"></div>
+                <div class="band s5"></div>
+                <div class="band s6"></div>
+                <div class="band s7"></div>
+                <div class="band s8"></div>
+                <div class="band s9"></div>
+                <div class="band s10"></div>
+                <div class="band s11_"></div>
+                <div class="band s12"></div>
+                <div class="band s13"></div>
+                <div class="band s14"></div>
+                <div class="band s15"></div>
+                <div class="band s16"></div>
+                <div class="band s17"></div>
+                <div class="band s18"></div>
               </div>
             </div>
           </div>
