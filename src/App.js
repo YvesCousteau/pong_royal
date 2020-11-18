@@ -177,7 +177,7 @@ function App() {
                     <div class="row ">
                       <div class="col-10 offset-1 col-2 mx-auto d-flex justify-content-center align-items-center">
                         <div class="form__group field  mr-2 mb-4 " >
-                          <input type="input" class="form__field" aria-label="Pseudo" placeholder="Pseudo" name="name" id='name' aria-describedby="inputGroup-sizing" required/>
+                          <input id="pseudo" type="input" class="form__field" aria-label="Pseudo" placeholder="Pseudo" name="name" aria-describedby="inputGroup-sizing" required/>
                           <label for="name" class="form__label">Pseudo</label>
                         </div>
                         <button
