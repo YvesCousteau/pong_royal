@@ -60,7 +60,7 @@ function App() {
       setPositionPlayer(data.pos);
       game.UpdatePositionPlayer(data.pos);
       game.UpdatePositionBalle(data.balls);
-    }); 
+    });
 
 
     return () => socket.disconnect();
@@ -95,7 +95,7 @@ function App() {
     for(let i=0; i<5;i++){
       arena[i] = [400 * Math.cos(2*Math.PI*(i+1)/5),400 * Math.sin(2*Math.PI*(i+1)/5)];
     }
-    
+
     game = new Game(socket,1,numPlayer,5,arena,50,3);
 
     setgameStart(true);
@@ -164,8 +164,6 @@ function App() {
               </div>
             </div>*/}
 
-<<<<<<< HEAD
-
 
               <div class=" glowing  " role="document">
                 <div class=" border-info ">
@@ -178,18 +176,6 @@ function App() {
                         </div>
                         <button
                           type="button" class="glow-on-hover btn btn-info justify-content-center align-items-center mt-2 " disabled={imready}
-=======
-              <div className="modal-dialog glowing" role="document">
-                <div className="modal-content card border-info">
-                  <div className="modal-body">
-                    <div className="row">
-                      <div className="col-10 offset-1 col-lg-8 offset-lg-2 d-flex justify-content-center align-items-center">
-                        <div className="input-pseudo  mr-2">
-                          <input id="pseudo" type="text" className="form-control" aria-label="Pseudo" placeholder="Pseudo" aria-describedby="inputGroup-sizing"/>
-                        </div>
-                        <button
-                          type="button" className="btn btn-info" disabled={imready}
->>>>>>> 4317dba1f6b3c3dde16717233058c5c9cb90a819
                           onClick={(btn) => {
                             if (!imready) {
                               socket.emit("player ready", {
@@ -216,7 +202,6 @@ function App() {
 
             <ModalScore show={imready} loading={true}/>
 
-<<<<<<< HEAD
 
             <button onClick={(btn) => {generateGame()}} type="button" class="glow-on-hover btn btn-danger">GENERATE GAME</button>
 
@@ -244,34 +229,6 @@ function App() {
                 <div class="band s16"></div>
                 <div class="band s17"></div>
                 <div class="band s18"></div>
-=======
-            <button onClick={(btn) => {generateGame()}} type="button" className="btn btn-danger">GENERATE GAME</button>
-
-          <div>
-            <div className="scene">
-              <div className="container">
-                <div className="sun"></div>
-                <div className="band s0"></div>
-                <div className="band s1"></div>
-                <div className="band s2"></div>
-                <div className="band s3"></div>
-                <div className="band s4"></div>
-                <div className="band s5"></div>
-                <div className="band s6"></div>
-                <div className="band s7"></div>
-                <div className="band s8"></div>
-                <div className="band s9"></div>
-                <div className="band s10"></div>
-                <div className="band s11_"></div>
-                <div className="band s12"></div>
-                <div className="band s13"></div>
-                <div className="band s14"></div>
-                <div className="band s15"></div>
-                <div className="band s16"></div>
-                <div className="band s17"></div>
-                <div className="band s18"></div>
-
->>>>>>> 4317dba1f6b3c3dde16717233058c5c9cb90a819
               </div>
             </div>
           </div>
