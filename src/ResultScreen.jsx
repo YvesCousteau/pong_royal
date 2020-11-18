@@ -84,10 +84,14 @@ const ModalScore = (props) => {
         </li>
         { props.loading &&
           <li className="list-group-item text-info">
-            <center>
+            <center style={{fontFamily: "Oxanium"}}>
               <div class="spinner-grow" role="status">
                 <span class="sr-only">Waiting for players...</span>
               </div>
+              <p>Waiting for players <b>{props.waitingPlayer}/10</b></p>
+              {(props.waitingPlayer >= 3) &&
+                <p>Game will start in {props.timeoutGamestart}s</p>
+              }
             </center>
           </li> 
         }

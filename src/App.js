@@ -74,14 +74,6 @@ function App() {
     }
   }
 
-  const printInfo = () => {
-    if(waitingPlayer >= 3){
-      return (<p>Game will start in {timeoutGamestart}s</p>);
-    }else{
-      return (<p>required minimum 3 players</p>);
-    }
-  }
-
 
   const generateGame = () => {
 
@@ -133,17 +125,6 @@ function App() {
       <div className="section-1-container section-container m-4">
 
         <UserSettings show={false}/>
-
-        <div class="glowing info_game" role="document" >
-          <div className="row text-center ">
-              <div className="col section-1 section-description mt-2">
-                  <div className="divider-1"><span></span></div>
-                  <p>Waiting for players <b>{waitingPlayer}/10</b></p>
-                  {printInfo()}
-
-              </div>
-          </div>
-        </div>
 
         <div className="container-main">
             <div className="row text-center">
@@ -208,7 +189,7 @@ function App() {
 
 
 
-            <ModalScore show={imready} loading={true}/>
+            <ModalScore show={imready} loading={true} waitingPlayer={waitingPlayer} timeoutGamestart={timeoutGamestart}/>
 
 
             <button onClick={(btn) => {generateGame()}} type="button" class="glow-on-hover btn btn-danger">GENERATE GAME</button>
