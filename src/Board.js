@@ -102,7 +102,7 @@ function MouvePlayer(numPlayer,offset){
 
 function MouveBalle(i,offset){
   if (balles[i]){
-    balles[i].pivot.set(offset[0],offset[1]);
+    balles[i].pivot.set(-offset[0],-offset[1]);
   }
 }
 
